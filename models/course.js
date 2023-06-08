@@ -14,6 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       Course.hasMany(models.StudentCourse, {foreignKey: 'CourseId'});
       Course.belongsTo(models.User, {foreignKey: 'TeacherId'});
     }
+
+    get duMenit() {
+      return this.duration+" menit";
+    }
+
+    get dateId() {
+      return this.createdAt.toLocaleString('id-ID', {dateStyle: 'medium'})
+    }
   }
   Course.init({
     name: DataTypes.STRING,

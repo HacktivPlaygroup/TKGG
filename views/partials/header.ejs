@@ -40,11 +40,15 @@
     
     <ul>
       <li><a class="active" href="/">RuangTK</a></li>
-      <div <%= userInfo ? '' : 'hidden' %>>
+      
+        <% if(userInfo) { %>
         <li style="float: right;"><a class="logout" href="/logout">Logout</a></li>
         <li style="float: right;"><a>Hi, <%= userInfo.name %> (<%= userInfo.role %>)</a> </li>
-
-      </div>
+        <% } else {%>
+        <li style="float: right;"><a class="logout" href="/login">Login</a></li>
+        <li style="float: right;"><a>Hi, Guest </a> </li>
+        <% } %>
+      
     </ul>
     
     </body>

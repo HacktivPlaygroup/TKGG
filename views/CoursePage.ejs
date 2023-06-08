@@ -29,9 +29,14 @@
         <body>
         
         <h2>Course List</h2>
+
         <!-- if teacher -->
-        <div <%= userInfo.role === 'Teacher' ? '' : 'hidden' %>>
+        <div>
+          <% if  (userInfo.role === 'Teacher') { %>
           <a href="/courses/add"><button>Add Course</button></a><br><br>
+          <% } else {%>
+            <a href="/courses/student/<%= userInfo.id %>"><button>View Student Enroll</button></a><br><br>
+          <% } %>
         </div>
         
         
@@ -51,18 +56,25 @@
                 <td><%= ++idx %></td>
                 <td><%= e.name %></td>
                 <td><%= e.User.userName %></td>
-                <td><%= e.description %></td>
-                <td><%= e.duration %></td>
-                <td><%= e.createdAt %></td>
+                <td style="white-space: pre;"><%= e.description %></td>
+                <td><%= e.duMenit %></td>
+                <td><%= e.dateId %></td>
                 <td>
-                  <a href=""><button>Enroll</button></a>
-
-                <!-- if teacher -->
-                  <div <%= userInfo.role === 'Teacher' ? '' : 'hidden' %>>
-                    <a href=""><button>Edit</button></a>
-                    <a href=""><button>Delete</button></a>
-                  </div>
-              </td>
+                <% e.StudentCourses.forEach(e2 => { %>
+                  <% if (userInfo.id === e2.StudentId) {%>
+                    <a href=""><button disabled>Enrolled</button></a>
+                        <% } else if (userInfo.id !== e2.StudentId) { %>
+                          
+                          <% }}) %>
+                        <div <%= userInfo.role === 'Student' ? '' : 'hidden' %>>
+                          <a href="/courses/enroll/<%= e.id %>"><button>Enroll</button></a>
+                        </div>
+                          <!-- if teacher -->
+                        <div <%= userInfo.role === 'Teacher' ? '' : 'hidden' %>>
+                          <a href="/courses/edit/<%= e.id %>"><button>Edit</button></a>
+                          <a href="/courses/delete/<%= e.id %>"><button>Delete</button></a>
+                        </div>
+                  </td>
               
             </tr>
             <% }) %>
