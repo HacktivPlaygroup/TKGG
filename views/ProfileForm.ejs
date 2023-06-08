@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Course</title>
+    <%- include('./partials/header.ejs') %>
+</head>
+<body>
+ 
+    <h1><%= user.firstName === null || user.lastName === null ? `Hello please complete your profile dulu dong!!` : `Hello ${user.firstName} ${user.lastName}!! Welcome Back Cihuy!!` %></h1>
+    <div>
+        <form action="/profile/<%= user.UserId %>" method="post">
+            <label for="">First Name :</label><br>
+            <input type="text" name="firstName" <%= user.firstName ? `value=${user.firstName}` : '' %>><br><br>
+            <label for="">Last Name :</label><br>
+            <input type="text" name="lastName" <%= user.lastName ? `value=${user.lastName}` : '' %>><br><br>
+            <label for="">Phone :</label><br>
+            <input type="text" name="phone" <%= user.phone ? `value=${user.phone}` : '' %>><br><br>
+            <label for="">Address :</label><br>
+            <textarea name="address" id="" cols="30" rows="10" <%= user.address ? `placeholder=${user.address}` : '' %>></textarea><br><br>
+           
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

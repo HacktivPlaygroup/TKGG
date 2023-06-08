@@ -42,7 +42,7 @@
       <li><a class="active" href="/">RuangTK</a></li>
       <div <%= userInfo ? '' : 'hidden' %>>
         <li style="float: right;"><a class="logout" href="/logout">Logout</a></li>
-        <li style="float: right;"><a>Hi, <%= userInfo.name %> (<%= userInfo.role %>)</a> </li>
+        <li style="float: right;"><a href="/profile/<%= userInfo.id %>">Hi, <%= userInfo.name %> (<%= userInfo.role %>)</a> </li>
 
       </div>
     </ul>

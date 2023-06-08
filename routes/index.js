@@ -24,9 +24,12 @@ router.use(function (req, res, next) {
     next();
 });  
 
+
 router.get('/courses', Controller.getCourses)
     .get('/courses/add', Controller.getAddCourse)
-    .post('/courses/add', Controller.postAddCourse);
-
+    .post('/courses/add', Controller.postAddCourse)
+    .get('/profile/:id', Controller.getProfile)
+    .post('/profile/:id', Controller.postProfile)
+    
 
 module.exports = router
