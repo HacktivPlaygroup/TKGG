@@ -114,6 +114,33 @@ class Controller{
         .then(() => res.redirect('/courses'))
         .catch(err => console.log(err))
     }
+
+    static getProfile(req, res) {
+        // res.send ()
+        // console.log(req.params.id)
+        const userInfo = req.session.user
+        Profile.findOne({
+                where: {
+                    UserId: req.session.user.id
+                }
+             })
+            .then((user) => {
+                res.render('ProfileForm', {user, userInfo})
+            })
+            .catch(err => res.send(err))
+    }
+
+    static postProfile(req, res) {
+        const {firstName, lastName, phone, address} = req.body
+        Profile.update({firstName, lastName, phone, address}, {where: {
+            UserId: req.session.user.id
+        }})
+            .then(() => {
+                res.redirect('/profile/' + req.session.user.id)
+            })
+            .catch(err => res.send(err))
+
+    }
     
     static getDeleteCourse(req,res) {
         StudentCourse.destroy({
@@ -142,6 +169,10 @@ class Controller{
         StudentCourse.create({CourseId, StudentId})
         .then(() => res.redirect('/courses'))
         .catch(err => console.log(err));
+    }
+
+    static getStudentDetail(req, res) {
+        
     }
 
     static getStudentCourse(req, res) {

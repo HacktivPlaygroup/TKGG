@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <%- include('./partials/header.ejs') %>
+</head>
+<body>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+        </head>
+        <body>
+        
+        <h2>Course List</h2>
+
+        <!-- if teacher -->
+        <div>
+          <% if  (userInfo.role === 'Teacher') { %>
+          <a href="/courses/add"><button>Add Course</button></a><br><br>
+          <% } else {%>
+            <a href="/courses/student/<%= userInfo.id %>"><button>View Student Enroll</button></a><br><br>
+          <% } %>
+        </div>
+        
+        
+        <table>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Teacher Name</th>
+            <th>Description</th>
+            <th>Course Duration</th>
+            <th>Posted Date</th>
+            <th>Action</th>
+          </tr>
+
+          <% course.forEach((e,idx) => { %>
+            <tr>
+                <td><%= ++idx %></td>
+                <td><%= e.name %></td>
+                <td><%= e.User.userName %></td>
+                <td style="white-space: pre;"><%= e.description %></td>
+                <td><%= e.duMenit %></td>
+                <td><%= e.dateId %></td>
+                <td>
+                <% e.StudentCourses.forEach(e2 => { %>
+                  <% if (userInfo.id === e2.StudentId) {%>
+                    <a href=""><button disabled>Enrolled</button></a>
+                        <% } else if (userInfo.id !== e2.StudentId) { %>
+                          
+                          <% }}) %>
+                        <div <%= userInfo.role === 'Student' ? '' : 'hidden' %>>
+                          <a href="/courses/enroll/<%= e.id %>"><button>Enroll</button></a>
+                        </div>
+                          <!-- if teacher -->
+                        <div <%= userInfo.role === 'Teacher' ? '' : 'hidden' %>>
+                          <a href="/courses/edit/<%= e.id %>"><button>Edit</button></a>
+                          <a href="/courses/delete/<%= e.id %>"><button>Delete</button></a>
+                        </div>
+                  </td>
+              
+            </tr>
+            <% }) %>
+            
+            
+            
+          </table>
+</body>
+</html>
