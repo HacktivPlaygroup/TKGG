@@ -10,6 +10,7 @@
     <div>
         <form action="/signup" method="post">
             <h1>Registration ya!</h1>
+            <p style="color: red; white-space: pre;"><%= errors ? `ERROR \n ${errors.split('!').join('\n')}` : '' %></p>
             <label for="">Username:</label><br>
             <input type="text" name="userName"><br><br>
             <label for="">Password:</label><br>

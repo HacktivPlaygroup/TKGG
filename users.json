@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "userName": "Sebil",
+        "password": "sebilcihuy",
+        "email": "sebilcihuy@crocketmail.com",
+        "grade": "ungraded",
+        "role": "Student"
+    },
+    {
+        "id": 2,
+        "userName": "NathanDeCoCo",
+        "password": "vape",
+        "email": "gekBali@goomail.com",
+        "grade": "ungraded",
+        "role": "Teacher"
+    },
+    {
+        "id": 3,
+        "userName": "JuanMexico",
+        "password": "gorilla432",
+        "email": "honorable@yahud.com",
+        "grade": "ungraded",
+        "role": "Student"
+    }
+]

@@ -9,7 +9,7 @@
 </head>
 <body>
  
-    <h1><%= user.firstName === null || user.lastName === null ? `Hello please complete your profile dulu dong!!` : `Hello ${user.firstName} ${user.lastName}!! Welcome Back Cihuy!!` %></h1>
+    <h1><%= user.firstName === null || user.lastName === null ? `Hello please complete your profile dulu dong!!` : `Hello ${user.fullname1}!! Welcome Back Cihuy!!` %></h1>
     <div>
         <form action="/profile/<%= user.UserId %>" method="post">
             <label for="">First Name :</label><br>

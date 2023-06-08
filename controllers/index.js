@@ -42,7 +42,8 @@ class Controller{
     }
 
     static getSignUpPage(req, res) {
-        res.render('SignUpPage');
+        let {errors} = req.query
+        res.render('SignUpPage' , {errors});
     }
 
     static postSignUpPage(req, res) {
@@ -54,7 +55,15 @@ class Controller{
             let info = `Signup ${user.userName} Sukses`;
             res.redirect(`/?info=${info}`)
         })
-        .catch(err => res.send(err));
+        .catch(err => {
+            if(err.name === "SequelizeValidationError") {
+                let errorsMsg = err.errors.map(e => {
+                    return e.message
+                }).join(' ')
+                return res.redirect(`/signup?errors=${errorsMsg}`)
+            }
+            res.send(err)
+        });
     }
 
     // MAIN DISH
@@ -64,9 +73,14 @@ class Controller{
     // MAIN DISH
     static getCourses(req, res) {
         const userInfo = req.session.user;
+        let {search} = req.query;
         let course;
+
+        // if(req.params.search) whereStatement.name = `[Op.iLike]`
+
         Course.findAll({
-            include: [User, StudentCourse]
+            include: [User, StudentCourse],
+            where: Course.nameSearch(search)
         })
         .then( (courseData) => {
             course = courseData;

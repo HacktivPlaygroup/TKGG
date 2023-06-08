@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model,Op
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Course extends Model {
@@ -21,6 +21,13 @@ module.exports = (sequelize, DataTypes) => {
 
     get dateId() {
       return this.createdAt.toLocaleString('id-ID', {dateStyle: 'medium'})
+    }
+
+    static nameSearch(search) {
+      let whereStatement = {};
+      if(search) whereStatement.name = {[Op.iLike]: `%${search}%`};
+
+      return whereStatement;
     }
   }
   Course.init({

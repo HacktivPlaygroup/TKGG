@@ -22,13 +22,36 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate:{
-        notNull: {msg: "userName required!"}
+        notNull: {msg: "userName required!"},
+        notEmpty: {msg: "userName required!"}
       }
     },
-    password: DataTypes.STRING,
-    email: DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {msg: "password required!"},
+        notEmpty: {msg: "password required!"}
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {msg: `email required!`},
+        notEmpty: {msg: `email required!`},
+        isEmail: {msg: `check your email's format!`}
+      }
+    },
     grade: DataTypes.STRING,
-    role: DataTypes.STRING
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {msg: `role required!`},
+        notEmpty: {msg: `role required!`}
+      }
+    }
   }, {
     hooks: {
       beforeCreate(user,option) {
