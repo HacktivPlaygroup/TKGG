@@ -1,6 +1,7 @@
 const {User, Profile, Course, StudentCourse} = require('../models');
 const {Op} = require('sequelize');
 const bcrypt = require('bcryptjs');
+const { learnRoll } = require('../helpers/learnG');
 
 class Controller{
     static homePage(req, res) {
@@ -159,7 +160,7 @@ class Controller{
             cascade: true,
             where: {CourseId: req.params.id}
         })
-        .then(() => res.redirect('/courses'))
+        .then(() => res.redirect(`/courses/student/${req.session.user.id}`))
         .catch(err => res.send(err))
     }
 
@@ -172,7 +173,35 @@ class Controller{
     }
 
     static getStudentDetail(req, res) {
-        
+        let stdCourse;
+        StudentCourse.findAll({
+            where: {StudentId: req.params.id},
+            include: [User,Course]
+        })
+        .then((stdDetail) => {
+            stdCourse = stdDetail;
+            return Profile.findOne({
+                where: {UserId: req.params.id},
+                include: User
+            })
+        })
+        .then((stdProfile) => {
+            console.log(stdProfile);
+           res.render('StudentEnrollDetail', {stdCourse,stdProfile, userInfo:req.session.user})
+
+        })
+        .catch(err => console.log(err))
+    }
+    
+    static getLearnCourse(req,res) {
+        User.findByPk(req.session.user.id)
+        .then((user) => {
+            // res.send(user);
+            const grade = learnRoll(user.grade);
+            return User.update({grade},{where:{id: req.session.user.id}})
+        })
+        .then(() => res.redirect(`/courses/student/${req.session.user.id}`))
+        .catch(err => res.send(err))
     }
 
     static getStudentCourse(req, res) {

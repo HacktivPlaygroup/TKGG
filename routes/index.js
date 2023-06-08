@@ -39,9 +39,11 @@ router.get('/courses', Controller.getCourses)
     .post('/profile/:id', Controller.postProfile)
     .get('/courses/student/:id', Controller.getStudentDetail)
     .get('/courses/delete/:id', isAdmin, Controller.getDeleteCourse)
-    .get('/courses/student/:id', Controller.getStudentCourse)
+    // .get('/courses/student/:id', Controller.getStudentCourse)
     .get('/courses/enroll/:id', Controller.getEnrollBtn)
     .get('/logout', Controller.getOut)
+    .get('/courses/enroll/learn/:id', Controller.getLearnCourse)
+    .get('/courses/enroll/delete/:id', Controller.getDeleteEnrollCourse)
 
 
 module.exports = router
