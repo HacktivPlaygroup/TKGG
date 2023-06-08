@@ -48,6 +48,7 @@ class Controller{
         
         User.create({userName, password, email, role})
         .then((user) => {
+            Profile.create({UserId: user.id})
             let info = `Signup ${user.userName} Sukses`;
             res.redirect(`/?info=${info}`)
         })
@@ -89,6 +90,33 @@ class Controller{
         Course.create(req.body)
         .then( () => res.redirect('/Courses') )
         .catch(err => res.send(err));
+    }
+
+    static getProfile(req, res) {
+        // res.send ()
+        // console.log(req.params.id)
+        const userInfo = req.session.user
+        Profile.findOne({
+                where: {
+                    UserId: req.session.user.id
+                }
+             })
+            .then((user) => {
+                res.render('ProfileForm', {user, userInfo})
+            })
+            .catch(err => res.send(err))
+    }
+
+    static postProfile(req, res) {
+        const {firstName, lastName, phone, address} = req.body
+        Profile.update({firstName, lastName, phone, address}, {where: {
+            UserId: req.session.user.id
+        }})
+            .then(() => {
+                res.redirect('/profile/' + req.session.user.id)
+            })
+            .catch(err => res.send(err))
+
     }
 
 }
