@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <%- include('./partials/header.ejs') %>
+</head>
+<body>
+    <div>
+        <form action="/signup" method="post">
+            <h1>Registration ya!</h1>
+            <label for="">Username:</label><br>
+            <input type="text" name="userName"><br><br>
+            <label for="">Password:</label><br>
+            <input type="text" name="password"><br><br>
+            <label for="">Email:</label><br>
+            <input type="text" name="email"><br><br>
+            <label for="">Role:</label><br>
+            <select name="role" id="">
+                <option disabled selected value>--Pilih role--</option>
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+            </select>
+            <button type="submit">Signup</button>
+        </form>
+    </div>
+    
+</body>
+</html>
