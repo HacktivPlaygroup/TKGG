@@ -11,10 +11,22 @@ const router = express.Router()
 // define the home page route
 router.get('/', Controller.homePage)
     .get('/login', Controller.getLoginPage)
-    .post('/login', Controller.postLoginPage)
     .get('/signup', Controller.getSignUpPage)
     .post('/signup', Controller.postSignUpPage)
-    .get('/courses')
+    .post('/login', Controller.postLoginPage);
+
+router.use(function (req, res, next) {
+    if(!req.session.user){
+        res.redirect('/login?info=LOGIN DULU NATHAN')
+        console.log(req.session);
+    }
+    
+    next();
+});  
+
+router.get('/courses', Controller.getCourses)
+    .get('/courses/add', Controller.getAddCourse)
+    .post('/courses/add', Controller.postAddCourse);
 
 
 module.exports = router

@@ -22,6 +22,9 @@
     li a:hover:not(.active) {
       background-color: #111;
     }
+    .logout {
+      background-color: red;
+    }
     
     .active {
       background-color: #18c8d4;
@@ -37,6 +40,11 @@
     
     <ul>
       <li><a class="active" href="/">RuangTK</a></li>
+      <div <%= userInfo ? '' : 'hidden' %>>
+        <li style="float: right;"><a class="logout" href="/logout">Logout</a></li>
+        <li style="float: right;"><a>Hi, <%= userInfo.name %> (<%= userInfo.role %>)</a> </li>
+
+      </div>
     </ul>
     
     </body>

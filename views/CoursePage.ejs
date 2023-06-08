@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <%- include('./partials/header.ejs') %>
+</head>
+<body>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+        </head>
+        <body>
+        
+        <h2>Course List</h2>
+        <!-- if teacher -->
+        <div <%= userInfo.role === 'Teacher' ? '' : 'hidden' %>>
+          <a href="/courses/add"><button>Add Course</button></a><br><br>
+        </div>
+        
+        
+        <table>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Teacher Name</th>
+            <th>Description</th>
+            <th>Course Duration</th>
+            <th>Posted Date</th>
+            <th>Action</th>
+          </tr>
+
+          <% course.forEach((e,idx) => { %>
+            <tr>
+                <td><%= ++idx %></td>
+                <td><%= e.name %></td>
+                <td><%= e.User.userName %></td>
+                <td><%= e.description %></td>
+                <td><%= e.duration %></td>
+                <td><%= e.createdAt %></td>
+                <td>
+                  <a href=""><button>Enroll</button></a>
+
+                <!-- if teacher -->
+                  <div <%= userInfo.role === 'Teacher' ? '' : 'hidden' %>>
+                    <a href=""><button>Edit</button></a>
+                    <a href=""><button>Delete</button></a>
+                  </div>
+              </td>
+              
+            </tr>
+            <% }) %>
+            
+            
+            
+          </table>
+</body>
+</html>
