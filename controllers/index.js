@@ -1,35 +1,34 @@
 const {User, Profile} = require('../models');
 const {Op} = require('sequelize');
 const bcrypt = require('bcryptjs');
-let info = {};
 
 class Controller{
     static homePage(req, res) {
-        info = {};
+        const {info} = req.query;
         res.render('HomePage', {info});
     }
 
     static getLoginPage(req, res) {
-        info = {};
+        const {info} = req.query;
         res.render('LoginPage', {info});
     }
     static postLoginPage(req, res) {
-        info = {};
+        let info;
         const {userName, password} = req.body;
         User.findOne({where: {userName} })
         .then(user => {
             if  (user) {
                 const isValidPasswrd = bcrypt.compareSync(password, user.password)
                 if (isValidPasswrd) {
-                    info = {name: `Login ${user.userName} Suskses`};
-                    res.render('HomePage', {info});
+                    info = `Login ${user.userName} Suskses`;
+                    res.redirect(`/?info=${info}`);
                 } else {
-                    info = {name: "password salah"};
-                    res.render('LoginPage', {info})
+                    info = "password salah";
+                    res.redirect(`/login?info=${info}`)
                 }
             } else {
-                info = {name: "username salah/tidak ditemukan"};
-                res.render('LoginPage', {info})
+                info = "username salah/tidak ditemukan";
+                res.redirect(`/login?info=${info}`)
             }
         })
         .catch(err => res.send(err));
@@ -42,8 +41,8 @@ class Controller{
         
         User.create({userName, password, email, role})
         .then((user) => {
-            info = {name: `Signup ${user.userName} Sukses`};
-            res.render('HomePage', {info})
+            let info = `Signup ${user.userName} Sukses`;
+            res.redirect(`/?info=${info}`)
         })
         .catch(err => res.send(err));
         

@@ -14,9 +14,12 @@
             <label for="">Username:</label><br>
             <input type="text" name="userName"><br><br>
             <label for="">Password:</label><br>
-            <input type="text" name="password"><br><br>
-            <%= info ? info.name : '' %>
-            <br>
+            <input type="text" name="password">
+            <div class="info">
+                <p style="color: red;">
+                 <%= info ? info : '' %>
+                </p>
+             </div>
             <button type="submit">Signup</button>
         </form>
     </div>

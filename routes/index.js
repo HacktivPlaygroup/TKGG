@@ -14,6 +14,7 @@ router.get('/', Controller.homePage)
     .post('/login', Controller.postLoginPage)
     .get('/signup', Controller.getSignUpPage)
     .post('/signup', Controller.postSignUpPage)
+    .get('/courses')
 
 
 module.exports = router
